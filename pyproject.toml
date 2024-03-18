@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "eigencircuits"
+version = "0.1.0"
+description = ""
+authors = ["tvergara <tomvergara@uc.cl>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+transformer-lens = {git = "https://github.com/neelnanda-io/TransformerLens.git"}
+pynvim = "^0.5.0"
+importlib = "^1.0.4"
+jupyter = "^1.0.0"
+pytest = "^7.4.4"
+matplotlib = "^3.8.2"
+seaborn = "^0.13.2"
+transformers = "^4.37.1"
+peft = "^0.7.1"
+fancy-einsum = "^0.0.3"
+scikit-learn = "^1.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

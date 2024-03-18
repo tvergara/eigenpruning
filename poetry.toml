@@ -1,0 +1,2 @@
+cache-dir = "~/storage/pypoetry"
+virtualenvs.cache-dir = "~/storage/pypoetry"
