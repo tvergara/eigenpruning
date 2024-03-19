@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["tvergara <tomvergara@uc.cl>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -18,6 +19,11 @@ transformers = "^4.37.1"
 peft = "^0.7.1"
 fancy-einsum = "^0.0.3"
 scikit-learn = "^1.4.0"
+torch = "2.2"
+jupyter-client = "^8.6.1"
+cairosvg = "^2.7.1"
+pnglatex = "^1.1"
+datasets = "^2.18.0"
 
 
 [build-system]
