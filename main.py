@@ -9,6 +9,7 @@ import uuid
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', type=str, default='gpt2')
+parser.add_argument('--cache_dir', type=str, default='/mnt/ialabnas/homes/tvergara')
 parser.add_argument('--device', type=str, default='cpu')
 parser.add_argument('--dataset', type=str, default='cb')
 parser.add_argument('--decomposed_components', nargs='+', default=['k'])
@@ -19,7 +20,7 @@ args = parser.parse_args()
 
 experiment_id = uuid.uuid4()
 device = torch.device(args.device)
-model = get_model(args.model, device)
+model = get_model(args.model, device, args.cache_dir)
 datasets = prepare_datasets(args.dataset, model.tokenizer)
 print('starting experiment', experiment_id)
 
