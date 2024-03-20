@@ -21,10 +21,16 @@ def prepare_cb(tokenizer):
         2: tokenizer(' neutral')['input_ids'][0],
     }
 
+    train_dataset = tokenize_dataset(train_dataset, tokenizer, token_map)
+    train_dataset.set_format('torch', columns=['input_ids', 'attention_mask', 'correct_token'])
+    test_dataset = tokenize_dataset(test_dataset, tokenizer, token_map)
+    test_dataset.set_format('torch', columns=['input_ids', 'attention_mask', 'correct_token'])
+    print('loaded cb dataset')
+    print(test_dataset)
 
     return {
-        'train': tokenize_dataset(train_dataset, tokenizer, token_map),
-        'test': tokenize_dataset(test_dataset, tokenizer, token_map)
+        'train': train_dataset,
+        'test': test_dataset
     }
 
 def tokenize_dataset(dataset, tokenizer, token_map):
