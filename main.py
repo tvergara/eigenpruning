@@ -1,6 +1,7 @@
 from models.models import get_model
 from data.prepare_dataset import prepare_datasets
 from training.find_circuit import find_circuit
+from evaluation.evaluate_model import evaluate
 
 import argparse
 import torch
@@ -29,3 +30,5 @@ model, mask = find_circuit(
     batch_size=args.batch_size,
     portion_to_trim=args.portion_trim,
 )
+
+evaluate(model, datasets['test'], batch_size=args.batch_size)
