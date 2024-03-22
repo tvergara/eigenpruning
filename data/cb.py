@@ -7,26 +7,25 @@ PROMPT = """Premise: {premise}
 Hypothesis: {hypothesis}
 
 Does the premise entail, contradict or is neutral to the hypothesis?
-Answer (entail, contradict, neutral):"""
+Answer (entails, contradicts, is neutral): The premise"""
 
+FIRST_TOKEN_INDEX = 0
 
 def prepare_cb(tokenizer):
-    tokenizer.padding_side = 'left'
     train_dataset = load_dataset('super_glue', 'cb', split='train')
     test_dataset = load_dataset('super_glue', 'cb', split='validation')
 
     token_map = {
-        0: tokenizer(' entail')['input_ids'][0],
-        1: tokenizer(' contradict')['input_ids'][0],
-        2: tokenizer(' neutral')['input_ids'][0],
+        0: tokenizer(' entails')['input_ids'][FIRST_TOKEN_INDEX],
+        1: tokenizer(' contradicts')['input_ids'][FIRST_TOKEN_INDEX],
+        2: tokenizer(' is neutral')['input_ids'][FIRST_TOKEN_INDEX]
     }
 
+    tokenizer.padding_side = 'left'
     train_dataset = tokenize_dataset(train_dataset, tokenizer, token_map)
     train_dataset.set_format('torch', columns=['input_ids', 'attention_mask', 'correct_token'])
     test_dataset = tokenize_dataset(test_dataset, tokenizer, token_map)
     test_dataset.set_format('torch', columns=['input_ids', 'attention_mask', 'correct_token'])
-    print('loaded cb dataset')
-    print(test_dataset)
 
     return {
         'train': train_dataset,

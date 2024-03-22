@@ -13,10 +13,9 @@ parser.add_argument('--cache_dir', type=str, default='/mnt/ialabnas/homes/tverga
 parser.add_argument('--device', type=str, default='cpu')
 parser.add_argument('--dataset', type=str, default='cb')
 parser.add_argument('--decomposed_components', nargs='+', default=['k'])
-parser.add_argument('--batch_size', type=int, default=5)
-parser.add_argument('--portion_trim', type=float, default=0.3)
-args = parser.parse_args()
-
+parser.add_argument('--batch_size', type=int, default=1)
+parser.add_argument('--portion_trim', type=float, default=0.2)
+args, unknown = parser.parse_known_args()
 
 experiment_id = uuid.uuid4()
 device = torch.device(args.device)

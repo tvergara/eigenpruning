@@ -8,6 +8,7 @@ def evaluate(model, dataset, batch_size=5):
     total_loss = 0.0
     correct_predictions = 0
     total_examples = 0
+    model.eval()
 
     for examples in tqdm(dataloader, desc='Evaluating'):
         input_ids = examples['input_ids']
@@ -18,7 +19,6 @@ def evaluate(model, dataset, batch_size=5):
         attention_masks = attention_masks.to(model.cfg.device)
         targets = targets.to(model.cfg.device)
 
-        model.eval()
         logits = model(input_ids, attention_mask=attention_masks)
         logits = logits[:, -1, :]
 

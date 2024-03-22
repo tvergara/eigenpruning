@@ -1,4 +1,3 @@
-import transformer_lens
 from transformer_lens import utils
 from fancy_einsum import einsum
 from notebooks.constants import PREACTIVATION_NAMES, PART_TO_PATH, PART_TO_BIAS_PATH
@@ -10,9 +9,6 @@ def compile_singular_values(
     masks,
     activations
 ):
-    model_copy = transformer_lens.HookedTransformer(model.cfg)
-    model_copy.load_state_dict(model.state_dict())
-    model = model_copy
     for key, mask in masks.items():
         u, s, v = singular_values[key]
         if len(u.shape) == 2:
@@ -39,10 +35,6 @@ def compile_singular_values(
 
         new_weight_matrix = recompose_matrix(u, s_mantained, v)
         compiled_matrix = recompose_matrix(u, s_removed, v)
-
-        # assert torch.allclose(
-        #     weight_matrix, new_weight_matrix + compiled_matrix, atol=1e-1
-        # )
 
         avg_activation = preactivations.mean(dim=0)
         if part == 'result':
