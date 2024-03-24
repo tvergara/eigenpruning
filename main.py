@@ -2,6 +2,7 @@ from models.models import get_model
 from data.prepare_dataset import prepare_datasets
 from training.find_circuit import find_circuit
 from evaluation.evaluate_model import evaluate
+from finetuning.finetune import finetune
 
 import argparse
 import torch
@@ -15,6 +16,8 @@ parser.add_argument('--dataset', type=str, default='cb')
 parser.add_argument('--decomposed_components', nargs='+', default=['k'])
 parser.add_argument('--batch_size', type=int, default=1)
 parser.add_argument('--portion_trim', type=float, default=0.2)
+parser.add_argument('--lr', type=float, default=0.01)
+parser.add_argument('--epochs', type=int, default=1)
 args, unknown = parser.parse_known_args()
 
 experiment_id = uuid.uuid4()
@@ -22,6 +25,15 @@ device = torch.device(args.device)
 model = get_model(args.model, device, args.cache_dir)
 datasets = prepare_datasets(args.dataset, model.tokenizer)
 print('starting experiment', experiment_id)
+
+
+finetune(
+    model,
+    datasets['train'],
+    lr=args.lr,
+    batch_size=args.batch_size,
+    epochs=args.epochs
+)
 
 model, mask = find_circuit(
     model,
