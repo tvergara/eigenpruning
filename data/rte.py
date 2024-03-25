@@ -11,7 +11,8 @@ Answer (entails or contradicts): The premise"""
 
 FIRST_TOKEN_INDEX = 1
 
-def prepare_rte(tokenizer):
+def prepare_rte(model):
+    tokenizer = model.tokenizer
     train_dataset = load_dataset('super_glue', 'rte', split='train')
     test_dataset = load_dataset('super_glue', 'rte', split='validation')
 

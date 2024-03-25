@@ -13,7 +13,8 @@ The correct choice is choice"""
 
 FIRST_TOKEN_INDEX = 0
 
-def prepare_copa(tokenizer):
+def prepare_copa(model):
+    tokenizer = model.tokenizer
     train_dataset = load_dataset('super_glue', 'copa', split='train')
     test_dataset = load_dataset('super_glue', 'copa', split='validation')
 

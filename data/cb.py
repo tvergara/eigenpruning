@@ -11,7 +11,8 @@ Answer (entails, contradicts, is neutral): The premise"""
 
 FIRST_TOKEN_INDEX = 0
 
-def prepare_cb(tokenizer):
+def prepare_cb(model):
+    tokenizer = model.tokenizer
     train_dataset = load_dataset('super_glue', 'cb', split='train')
     test_dataset = load_dataset('super_glue', 'cb', split='validation')
 

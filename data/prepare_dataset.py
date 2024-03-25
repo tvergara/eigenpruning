@@ -2,10 +2,10 @@ from data.cb import prepare_cb
 from data.copa import prepare_copa
 from data.rte import prepare_rte
 
-def prepare_datasets(name, tokenizer):
+def prepare_datasets(name, model):
     if name == 'cb':
-        return prepare_cb(tokenizer)
+        return prepare_cb(model)
     if name == 'copa':
-        return prepare_copa(tokenizer)
+        return prepare_copa(model)
     if name == 'rte':
-        return prepare_rte(tokenizer)
+        return prepare_rte(model)
