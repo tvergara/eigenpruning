@@ -3,13 +3,18 @@ from data.constants import MAX_LENGTH
 
 
 PROMPT = """Premise: {premise}
+{question}
 
-Choice 1: {choice_1}
+Alternative 1: {choice_1}
+Alternative 2: {choice_2}
 
-Choice 2: {choice_2}
+What is the correct alternative?
+The correct alternative is alternative"""
 
-What is the correct choice?
-The correct choice is choice"""
+QUESTION_MAP = {
+    'cause': 'What was the cause of this?',
+    'effect': 'What happened as a result?',
+}
 
 FIRST_TOKEN_INDEX = 0
 
@@ -53,8 +58,8 @@ def tokenize_dataset(dataset, tokenizer, token_map):
 
 def format_examples(examples, token_map):
         prompts = [
-            PROMPT.format(premise=premise, choice_1=choice_1, choice_2=choice_2)
-            for premise, choice_1, choice_2 in zip(examples['premise'], examples['choice1'], examples['choice2'])
+            PROMPT.format(premise=premise, choice_1=choice_1, choice_2=choice_2, question=QUESTION_MAP[question])
+            for premise, choice_1, choice_2, question in zip(examples['premise'], examples['choice1'], examples['choice2'], examples['question'])
         ]
         correct_tokens = [token_map[label] for label in examples['label']]
         return {'prompt': prompts, 'correct_token': correct_tokens}
