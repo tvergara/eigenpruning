@@ -8,6 +8,8 @@ import argparse
 import torch
 import uuid
 
+torch.manual_seed(42)
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', type=str, default='gpt2')
 parser.add_argument('--cache_dir', type=str, default='/mnt/ialabnas/homes/tvergara')
@@ -23,9 +25,11 @@ args, unknown = parser.parse_known_args()
 experiment_id = uuid.uuid4()
 device = torch.device(args.device)
 model = get_model(args.model, device, args.cache_dir)
-datasets = prepare_datasets(args.dataset, model.tokenizer)
+datasets = prepare_datasets(args.dataset, model)
 print('starting experiment', experiment_id)
-
+print('model:', args.model)
+print('portion_trim:', args.portion_trim)
+print('dataset:', args.dataset)
 
 finetune(
     model,

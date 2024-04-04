@@ -21,7 +21,7 @@ def find_circuit(
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
     effect_by_singular_values = {}
-    for examples in dataloader:
+    for examples in tqdm(dataloader, desc='finding circuit'):
 
         input_ids = examples['input_ids']
         attention_masks = examples['attention_mask']
@@ -45,7 +45,6 @@ def find_circuit(
             components
         )
         merge_effects(effect_by_singular_values, effect)
-        break
 
     mask = get_mask(effect_by_singular_values, portion_to_trim)
     model = compile_singular_values(model, singular_values, mask, activations)
